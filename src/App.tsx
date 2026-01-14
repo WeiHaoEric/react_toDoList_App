@@ -1,38 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { TodoInput } from './components/TodoInput';
+import { TodoList } from './components/TodoList';
+import { Todo } from './types/todo';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleAddTodo = (text: string) => {
+    const newTodo: Todo = {
+      id: crypto.randomUUID(),
+      text,
+      createdAt: new Date(),
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const handleDeleteTodo = (id: string) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   return (
-    <>
-      <div className="flex justify-center items-center">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen w-full bg-blue-200 flex items-start justify-center pt-12 px-8">
+      <div className="w-full max-w-2xl">
+        {/* Header */}
+        <h1 className="text-4xl font-bold text-center text-black mb-8 tracking-wider">
+          TODO LIST APP
+        </h1>
+
+        {/* Todo Input */}
+        <TodoInput onAdd={handleAddTodo} />
+
+        {/* Todo List */}
+        <div className="mt-8">
+          <TodoList todos={todos} onDelete={handleDeleteTodo} />
+        </div>
       </div>
-      <h1 className="text-4xl font-bold text-blue-600">Vite + React + Tailwind</h1>
-      <div className="card">
-        <button 
-          onClick={() => setCount((count) => count + 1)}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          count is {count}
-        </button>
-        <p className="mt-3">
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
