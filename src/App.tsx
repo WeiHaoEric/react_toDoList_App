@@ -20,8 +20,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-blue-200 flex items-start justify-center pt-12 px-8">
-      <div className="w-full max-w-2xl">
+    <div className="min-h-screen w-full bg-blue-200 flex items-start justify-center pt-12 px-8 pb-12">
+      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl px-12 py-10">
         {/* Header */}
         <h1 className="text-4xl font-bold text-center text-black mb-8 tracking-wider">
           TODO LIST APP
